@@ -1,0 +1,310 @@
+import styles from "./Css/Template27.module.css";
+import { useState, useEffect, useRef } from "react";
+import ServiceEnquiryForm from "./FormComponent/ServiceEnquiryForm";
+import { Link } from "react-router-dom";
+import LastSectionComponent from "./SectionComponent/LastSectionComponent";
+import Loader from "../../component/Loader/Loader";
+import "react-toastify/dist/ReactToastify.css";
+import Stats from 'stats.js';
+import { PageWrapper } from "../../SEOComponent/PageWrapper";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+export const Template27 = ({ serviceResponse, slug }) => {
+  const [loading, setLoading] = useState(false);
+
+    const statsRef = useRef(null);
+
+    useEffect(() => {
+      AOS.init({      
+        duration: 2000,
+        once: false,
+      });
+    }, []);
+
+  useEffect(() => {
+    // Initialize particles.js
+    window.particlesJS('particles-js', {
+      particles: {
+        number: {
+          value: 180,
+          density: {
+            enable: true,
+            value_area: 800,
+          },
+        },
+        color: { value: '#ffffff' },
+        shape: {
+          type: 'circle',
+          stroke: { width: 0, color: '#000000' },
+          polygon: { nb_sides: 5 },
+        },
+        opacity: {
+          value: 0.5,
+          random: false,
+        },
+        size: {
+          value: 3,
+          random: true,
+        },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: '#ffffff',
+          opacity: 0.4,
+          width: 1,
+        },
+        move: {
+          enable: true,
+          speed: 6,
+          direction: 'none',
+          random: false,
+          straight: false,
+          out_mode: 'out',
+          bounce: false,
+        },
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: {
+          onhover: { enable: true, mode: 'grab' },
+          onclick: { enable: true, mode: 'push' },
+          resize: true,
+        },
+        modes: {
+          grab: {
+            distance: 140,
+            line_linked: { opacity: 1 },
+          },
+          bubble: {
+            distance: 400,
+            size: 40,
+            duration: 2,
+            opacity: 8,
+            speed: 3,
+          },
+          repulse: {
+            distance: 200,
+            duration: 0.4,
+          },
+          push: { particles_nb: 4 },
+          remove: { particles_nb: 2 },
+        },
+      },
+      retina_detect: true,
+    });
+
+    // ✅ Stats.js setup with npm package
+    const stats = new Stats();
+    stats.showPanel(0); // 0: fps
+
+    stats.dom.style.position = 'absolute';
+    stats.dom.style.left = '0px';
+    stats.dom.style.top = '0px';
+    statsRef.current?.appendChild(stats.dom);
+
+    const update = () => {
+      stats.begin();
+      stats.end();
+      requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  }, []);
+
+
+  return (
+    <div>
+      <PageWrapper slug={slug} type="Template">
+      {loading && <Loader />}
+      <main>
+        <div
+          className={styles.dfgjhfgd}
+          // style={{ backgroundImage: "url(./images/afros.png)" }}
+        >
+          <div className={`${styles.sdfghdfgdf} col-lg-6`}>
+            <h1 className="mt-0 mb-0">
+              {serviceResponse.data?.banner_title &&
+                serviceResponse.data.banner_title}
+            </h1>
+
+            <div
+              className="mt-3 mb-5"
+              dangerouslySetInnerHTML={{
+                __html:
+                  serviceResponse.data?.banner_description &&
+                  serviceResponse.data.banner_description,
+              }}
+            />
+
+            <div className={styles.vbddds}>
+              <Link to="/contact-us" className="btn125">
+                Contact Us
+              </Link>
+                <button className="btn126">
+                    <a href="tel:8420202891" style={{ color: "inherit", textDecoration: "none" }}>
+                    Get In Touch With Us
+                    </a>
+              </button>
+            </div>
+          </div>
+
+          <div className={`${styles.dbfghsdf} col-lg-6 position-relative`}>
+            {serviceResponse.data?.banner_image && (
+              <img
+                src={`${serviceResponse.image_url}/Templete_27/${serviceResponse.data.banner_image}`}
+                alt=""
+              />
+            )}
+
+            {slug === 'flyer-design-company' && (
+                <div className={styles.flyer_page}>
+                  <img src="./images/flyer_img5.png" className={styles.circle} alt=""/>
+                  <img src="./images/flyer_img1.png" className={styles.img1} data-aos="fade-down-right" alt=""/>
+                  <img src="./images/flyer_img2.png" className={styles.img2} data-aos="fade-down-right"alt=""/>
+                  <img src="./images/flyer_img3.png" className={styles.img3} data-aos="fade-up-left" alt=""/>
+                  <img src="./images/flyer_img4.png" className={styles.img4} data-aos="fade-up-left" alt=""/>
+                </div>
+            )}
+          </div>
+        </div>
+
+        <div className={styles.fjhfdfgdfg}>
+          <div className="custom-container">
+            <div className={styles.sdfsdfsdf}>
+              <h2>
+                {serviceResponse.data?.second_section_title &&
+                  serviceResponse.data.second_section_title}
+              </h2>
+              <div
+                className="pt-4"
+                dangerouslySetInnerHTML={{
+                  __html:
+                    serviceResponse.data?.second_section_description &&
+                    serviceResponse.data.second_section_description,
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
+        <ServiceEnquiryForm loading={setLoading} slug={slug} />
+
+        <div className={styles.dfbghdfgdfgdf}>
+          <div className="custom-container">
+            <div className={styles.mgjhbdfg}>
+              <h2>
+                {serviceResponse.data?.third_section_title &&
+                  serviceResponse.data.third_section_title}
+              </h2>
+
+              <div
+                dangerouslySetInnerHTML={{
+                  __html:
+                    serviceResponse.data?.third_section_description &&
+                    serviceResponse.data.third_section_description,
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div
+          className={`${styles.mgjhbdfg} overflow-hidden py-5`} style={{ backgroundImage: "url(./images/30087676_v904-nunny-031-a.jpg)" }}
+        >
+          <div id="particles-js" className={styles.ewfjbnhavjedfkbn}></div>
+          <div className="custom-container py-5">
+            <div className="position-relative">
+              <div className="row">
+                <div className="col-lg-7 mb-5">
+                  <div className={styles.jikasdnudhwer_inner}>
+                    <h2 className="mb-4">
+                      {serviceResponse.data?.fourth_section_title &&
+                        serviceResponse.data.fourth_section_title}
+                    </h2>
+
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html:
+                          serviceResponse.data?.fourth_section_description &&
+                          serviceResponse.data.fourth_section_description,
+                      }}
+                    />
+
+                    <Link to="/contact-us" className="btn126">
+                      Contact Us
+                    </Link>
+                  </div>
+                </div>
+
+                <div className="col-lg-5 mb-5">
+                  <div className={`${styles.dcsbnhgrffsfee} sticky-top`}>
+                    {serviceResponse.data?.fourth_section_image && (
+                      <img
+                        src={`${serviceResponse.image_url}/Templete_27/${serviceResponse.data.fourth_section_image}`}
+                        alt=""
+                        className="img-fluid"
+                      />
+                    )}
+                    {slug === 'flyer-design-company' && (
+                      <div className={styles.fly}>
+                        <img src="./images/flyer_2ndImg_1.png" className={styles.s1} alt="" />
+                        <img src="./images/flyer_2ndImg_2.png" className={styles.s2} alt="" />
+                        <img src="./images/flyer_2ndImg_3.png" className={styles.s3} alt="" />
+                        <img src="./images/flyer_2ndImg_4.png" className={styles.s4} alt="" />
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="col-lg-5 mb-5">
+                  <div className={`${styles.dcsbnhgrffsfee} position-relative sticky-top`}>
+                    {serviceResponse.data?.fifth_section_image && (
+                      <img
+                        src={`${serviceResponse.image_url}/Templete_27/${serviceResponse.data.fifth_section_image}`}
+                        alt=""
+                        className="img-fluid"
+                      />
+                    )}
+                    </div>
+                    {slug === 'flyer-design-company' && (
+                      <div className={styles.leptop}>
+                        <img src="./images/lep.png" className={styles.l6} alt="" />
+                        <img src="./images/fly1.png" className={styles.l1} alt="" />
+                        <img src="./images/fly2.png" className={styles.l2} alt="" />
+                        <img src="./images/fly3.png" className={styles.l3} alt="" />
+                        <img src="./images/fly4.png" className={styles.l4} alt="" />
+                        <img src="./images/fly5.png" className={styles.l5} alt="" />
+                      </div>
+                    )}
+                  
+                </div>
+
+                <div className="col-lg-7 mb-5">
+                  <div className={styles.jikasdnudhwer_inner}>
+                    <h2 className="mb-4">
+                      {serviceResponse.data?.fifth_section_title &&
+                        serviceResponse.data.fifth_section_title}
+                    </h2>
+
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html:
+                          serviceResponse.data?.fifth_section_description &&
+                          serviceResponse.data.fifth_section_description,
+                      }}
+                    />
+                    <Link to="/contact-us" className="btn126">
+                      Contact Us
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <LastSectionComponent />
+      </main>
+      </PageWrapper>
+    </div>
+  );
+};
