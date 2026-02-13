@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
+// eslint-disable-next-line
+import { ToastContainer, toast } from "react-toastify";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -806,7 +808,13 @@ export const Home = ({ state }) => {
         <FAQ faqs={HomePageDetails.data.Faqs} headingDetails={HomeAllDetails}/>
         {/* </main> */}
         {/*middle end*/}
-        <div className="over-white-layer position-fixed bg-white" />
+        <div className="over-white-layer position-fixed bg-white" />.
+
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          style={{ zIndex: 9999999999 }}
+        />
       </div>
     </PageWrapper>
   );

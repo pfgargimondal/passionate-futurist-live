@@ -8,7 +8,7 @@ export const EnquiryForm = ({ loading, serviceCategory }) => {
     name: "",
     phone_number: "",
     email: "",
-    service_category: "",
+    // service_category: "",
     message: "",
   });
   const [errors, setErrors] = useState({});
@@ -41,9 +41,9 @@ export const EnquiryForm = ({ loading, serviceCategory }) => {
       newErrors.email = "Enter a valid email address";
     }
 
-    if (!inputs.service_category) {
-      newErrors.service_category = "Please select a category";
-    }
+    // if (!inputs.service_category) {
+    //   newErrors.service_category = "Please select a category";
+    // }
 
     if (!inputs.message.trim()) {
       newErrors.message = "Message is required";
@@ -58,26 +58,25 @@ export const EnquiryForm = ({ loading, serviceCategory }) => {
   const submitForm = async (e) => {
     e.preventDefault();
     
-
       const validationErrors = validateInputs(inputs);
 
       if (Object.keys(validationErrors).length > 0) {
         setErrors(validationErrors);
         return;
       }
-
       setErrors({});
       // loading(true); // loader ON
 
       try {
         const response = await http.post("/add-home-page-enquiry", inputs);
-        // loading(false);
+        loading(false);
 
-        if (response.data.success) {
+        if (response.data.success === true) {
             toast.success(response.data.message, {
               style: {
                 background: "#2ecc71",
                 color: "#fff",
+                height: "0px",
               },
             });
 
@@ -85,7 +84,7 @@ export const EnquiryForm = ({ loading, serviceCategory }) => {
               name: "",
               phone_number: "",
               email: "",
-              service_category: "",
+              // service_category: "",
               message: "",
             });
         }else{
@@ -93,19 +92,22 @@ export const EnquiryForm = ({ loading, serviceCategory }) => {
               style: {
                 background: "#e74c3c", // red for error
                 color: "#fff",
+                height: "0px",
               },
             });
             setInputs({
               name: "",
               phone_number: "",
               email: "",
-              service_category: "",
+              // service_category: "",
               message: "",
             });
         }
       } catch (error) {
-        // loading(false);
+        loading(false);
         toast.error(error.response?.data?.message || "Something went wrong.");
+      } finally {
+        loading(false);
       }
   };
 
@@ -212,12 +214,14 @@ export const EnquiryForm = ({ loading, serviceCategory }) => {
           </div>
         </form>
         <div className="border-blur" />
+
+        
       </div>
       <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        style={{ zIndex: 9999999999 }}
-      />
+          position="top-right"
+          autoClose={3000}
+          style={{ zIndex: 9999999999 }} 
+        />
     </div>
     
   );
